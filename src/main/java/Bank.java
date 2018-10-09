@@ -9,10 +9,17 @@
  */
 public class Bank {
 
-    public String bankName;
+    /**
+     * This is the bank name.
+     */
+    private String bankName;
 
+    /**
+     * this is the constructor for the bank.
+     */
     public Bank() {
         bankName = "Illini Bank";
+        totalAccounts++;
     }
 
     /**
@@ -26,9 +33,11 @@ public class Bank {
      * @return boolean
      */
     public boolean withdrawMoney(final BankAccount bankAccount, final double amount) {
-        /*
-         * Implement this function
-         */
+        if (amount < bankAccount.getAccountBalance()) {
+            bankAccount.setAccountBalance(bankAccount.getAccountBalance() - amount);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -42,9 +51,8 @@ public class Bank {
      * @return boolean
      */
     public boolean depositMoney(final BankAccount bankAccount, final double amount) {
-        /*
-         * Implement this function
-         */
+        bankAccount.setAccountBalance(bankAccount.getAccountBalance() + amount);
+        return true;
     }
 
     /**
@@ -61,9 +69,11 @@ public class Bank {
 
     public boolean transferMoney(final BankAccount source, final BankAccount destination,
             final double amount) {
-        /*
-         * Implement this function
-         */
+        if (amount > source.getAccountBalance()) {
+            return false;
+        }
+        destination.setAccountBalance(destination.getAccountBalance() + amount);
+        return true;
     }
 
     /**
@@ -74,21 +84,20 @@ public class Bank {
      */
 
     public void changeOwnerName(final BankAccount bankAccount, final String name) {
-        /*
-         * Implement this function
-         */
+        bankAccount.setOwnerName(name);
     }
 
-    public static int totalAccounts = 0;
+    /**
+     * the total accounts.
+     */
+    private static int totalAccounts = 0;
     /**
      * Uses static variable to get number of bank accounts opened.
      *
      * @return the total number of accounts
      */
     public static int getNumberOfAccount() {
-        /*
-         * Implement this function
-         */
+        return totalAccounts;
     }
 
     /**
